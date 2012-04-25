@@ -1,6 +1,6 @@
 # NAME
 
-require-simple.js
+require-simple.js - provides `require()` to load node.js-like modules
 
 # SYNOPSIS
 
