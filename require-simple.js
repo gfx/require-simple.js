@@ -3,6 +3,13 @@
  *
  * AUTHOR: Fuji, Goro (gfx) <gfuji@cpan.org>
  * LICENSE: The MIT License
+ *
+ * Usage:
+ *     <script src="require-simple.js"></script>
+ *     <script>
+ *         require.paths.unshift("assets/js");
+ *         var Foo = require("foo");
+ *     </script>
  */
 
 function require(name) {
@@ -34,8 +41,8 @@ function require(name) {
 			}
 
 			if(xhr.status !== 404 || (i+1) === paths.length) {
-				throw new Error("Failed to load \"" + name + "\": " +
-								xhr.status + " " + xhr.responseText);
+				throw new Error("Cannot load module \"" + name + "\": " +
+								xhr.status);
 			}
 		}
 	}
@@ -46,11 +53,13 @@ function require(name) {
 	var f = new Function("module", "exports", src);
 
 	var module = require.modules[name] = {
+		id: name,
 		exports: {}
 	};
 	f(module, module.exports);
 	return module.exports;
 }
+
 require.debug = false;
 require.paths = ["."];
 
