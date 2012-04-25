@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <title>require-simple.js</title>
+  <script src="../require-simple.js"></script>
+  <script>
+    window.addEventListener("load", function(e) {
+      require.paths.unshift("js");
+      var Foo = require("foo");
+
+      document.getElementById("main").innerHTML = new Foo();
+    });
+  </script>
+</head>
+<body>
+  <h1>require-simple.js</h1>
+  <p id="main">(empty)</p>
+</body>
+
