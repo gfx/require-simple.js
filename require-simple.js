@@ -12,6 +12,10 @@
  *     </script>
  */
 
+if(typeof(window) === "undefined") {
+	throw new Error("require-simple.js works only on browsers!");
+}
+
 function require(name) {
 	"use strict";
 	if(!require.modules) {
@@ -46,17 +50,25 @@ function require(name) {
 			}
 		}
 	}
-
-	var src = findModule(require.paths, name);
-
-	/*jslint evil: true */
-	var f = new Function("module", "exports", src);
-
 	var module = require.modules[name] = {
 		id: name,
 		exports: {}
 	};
-	f(module, module.exports);
+
+	var src = findModule(require.paths, name);
+
+	var m = "require.modules['" + name.replace(/'/g, "\\'") + "']";
+	var srcSection = document.createTextNode(
+		"(function (module, exports) { // added by require-simple.js\n" +
+		src +
+		"}("+m+", "+m+".exports)); // added by require-simple.js\n"
+	);
+
+	var script = document.createElement("script");
+	script.appendChild(srcSection);
+
+	document.head.appendChild(script);
+
 	return module.exports;
 }
 
