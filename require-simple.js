@@ -59,9 +59,9 @@ function require(name) {
 
 	var m = "require.modules['" + name.replace(/'/g, "\\'") + "']";
 	var srcSection = document.createTextNode(
-		"(function (module, exports) { // added by require-simple.js\n" +
+		"(function (module, exports) { // "+name+".js\n" +
 		src +
-		"}("+m+", "+m+".exports)); // added by require-simple.js\n"
+		"}("+m+", "+m+".exports));\n"
 	);
 
 	var script = document.createElement("script");
