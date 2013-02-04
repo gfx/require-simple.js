@@ -40,7 +40,7 @@ function require(name) {
 				console.log("require: " + xhr.status + " " + url);
 			}
 
-			if(xhr.status === 200) {
+			if(xhr.status === 200 || xhr.status == 0) {
 				return xhr.responseText;
 			}
 
