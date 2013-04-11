@@ -30,7 +30,7 @@ function require(name) {
 
 	function findModule(paths, name) {
 		for(var i = 0; i < paths.length; ++i) {
-			var url = paths[i]+ "/" + name + ".js";
+			var url = paths[i]+ "/" + (name.match(/\.js$/) ? name : name + ".js");
 
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", url, false);
